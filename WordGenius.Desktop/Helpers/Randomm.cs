@@ -39,4 +39,27 @@ class Randomm
 
         return list;
     }
+
+    public int Next(int start, int stop)
+    {
+        Random random = new Random();
+        return random.Next(start, stop);
+    }
+
+    public  List<int> GenerateRandomNumbers(int start, int stop, int block)
+    {
+        List<int> numbers = new List<int>();
+        Random random = new Random();
+
+        while (numbers.Count < 3)
+        {
+            int randomNumber = random.Next(start, stop);
+            if (randomNumber != block && !numbers.Contains(randomNumber))
+            {
+                numbers.Add(randomNumber);
+            }
+        }
+
+        return numbers;
+    }
 }

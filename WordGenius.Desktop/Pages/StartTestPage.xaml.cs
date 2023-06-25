@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using WordGenius.Desktop.Entities.Test;
+using WordGenius.Desktop.Entities.Words;
 
 namespace WordGenius.Desktop.Pages
 {
@@ -41,7 +42,7 @@ namespace WordGenius.Desktop.Pages
             list.Add(test.errorAns2);
             list.Add(test.errorAns3);
             //List<string> list = new List<string>() {"a","b","c","d"};
-            list = Shuffle(list);
+            list = Shuffle2(list);
             A.Content = list[0].ToString();
             B.Content = list[1].ToString();
             C.Content = list[2].ToString();
@@ -60,7 +61,7 @@ namespace WordGenius.Desktop.Pages
             list.Add(test.errorAns2);
             list.Add(test.errorAns3);
 
-            list = Shuffle(list);
+            list = Shuffle2(list);
             A.Content = list[0].ToString();
             B.Content = list[1].ToString();
             C.Content = list[2].ToString();
@@ -80,7 +81,7 @@ namespace WordGenius.Desktop.Pages
             list.Add(test.errorAns2);
             list.Add(test.errorAns3);
 
-            list = Shuffle(list);
+            list = Shuffle2(list);
             A.Content = list[0].ToString();
             B.Content = list[1].ToString();
             C.Content = list[2].ToString();
@@ -95,6 +96,21 @@ namespace WordGenius.Desktop.Pages
             var random = new Random();
             list = list.OrderBy(x => random.Next()).ToList();
 
+            return list;
+        }
+
+        public List<string> Shuffle2(List<string> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                var value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
             return list;
         }
 

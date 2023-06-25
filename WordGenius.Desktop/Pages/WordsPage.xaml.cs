@@ -46,7 +46,7 @@ namespace WordGenius.Desktop.Pages
             var paginationParams = new PagenationParams()
             {
                 PageNumber = 1,
-                PageSize = 30
+                PageSize = 50
             };
             var words = await _wordRepository.GetAllAsync(paginationParams);
 

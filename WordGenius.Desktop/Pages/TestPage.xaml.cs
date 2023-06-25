@@ -126,6 +126,8 @@ namespace WordGenius.Desktop.Pages
 
         private void GenerateBtn_Click(object sender, RoutedEventArgs e)
         {
+            i = correct = incorrect = 0;
+
             secund.Text = (int.Parse(numberTb.Text) * 6).ToString();
             nextBtn.Content = "START";
             nextBtn.Visibility = Visibility.Visible;
@@ -155,7 +157,6 @@ namespace WordGenius.Desktop.Pages
                     PageNavigator.Content = resultPage;
                     Secundomer.Visibility = Visibility.Collapsed;
                     StecGenerate.Visibility = Visibility.Visible;
-                    i = correct = incorrect = 0;
                 }
 
             }
@@ -169,7 +170,6 @@ namespace WordGenius.Desktop.Pages
                 PageNavigator.Content = resultPage;
                 Secundomer.Visibility = Visibility.Collapsed;
                 StecGenerate.Visibility = Visibility.Visible;
-                i = correct = incorrect = 0;
         }
 
         private async void Starttt(int n)
@@ -185,17 +185,17 @@ namespace WordGenius.Desktop.Pages
 
             List<Test> tests = new List<Test>();
 
-            var paginationParams = new PagenationParams()
-            {
-                PageNumber = 1,
-                PageSize = 30
-            };
-            var words = await _wordRepository.GetAllAsync(paginationParams);
+
+            var count = await _wordRepository.CountAsync();
+            count = rn.Next(0, count-30);
+
+            var words = await _wordRepository.GetAllNMemoAsync(count);
             int stop = words.Count;
+            
 
             for (int i = 0; i < n; i++)
             {
-                var son = rn.GenerateRandom(0, stop, i);
+                var son = rn.GenerateRandomNumbers(0, stop, i);
 
                 Test test = new Test();
                 test.word = words[i];
@@ -228,5 +228,21 @@ namespace WordGenius.Desktop.Pages
 
             return list;
         }
+
+        public List<Word> Shuffle2(List<Word> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                var value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+            return list;
+        }
+
     }
 }
