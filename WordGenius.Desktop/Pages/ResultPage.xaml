@@ -1,0 +1,66 @@
+﻿<Page x:Class="WordGenius.Desktop.Pages.ResultPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WordGenius.Desktop.Pages"
+      mc:Ignorable="d" 
+      Height="450" Width="800"
+      Title="ResultPage">
+
+    <Grid Background="Transparent">
+        <Border
+            CornerRadius="20"
+            Background="Transparent">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0"
+                     x:Name="YashilBorder" 
+                            Margin="20 100 20 20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <Label        
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Content="Correct"
+                             Foreground="Green"
+                             FontSize="50">
+                        
+                    </Label>
+                        <TextBlock x:Name="Yashilchiroq"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="456"
+                                   Foreground="Green"
+                                   FontSize="100">
+                        </TextBlock>
+                    
+                </StackPanel>
+                <StackPanel Grid.Column="1"
+                     x:Name="QizilBorder" 
+                            Margin="20 100 20 20"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                    <Label        
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Content="Incorrect"
+                             Foreground="Red"
+                             FontSize="50">
+
+                    </Label>
+                    <TextBlock x:Name="Qizilchiroq"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="456"
+                                   Foreground="Red"
+                                   FontSize="100">
+                        </TextBlock>
+                </StackPanel>
+            </Grid>
+       </Border>
+    </Grid>
+</Page>

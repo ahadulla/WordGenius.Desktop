@@ -1,0 +1,103 @@
+﻿<Window x:Class="WordGenius.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WordGenius.Desktop"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="700" 
+        Width="1150"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Normal"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                MouseLeftButtonDown="brDragble_MouseDown"
+                Background="{DynamicResource PrimaryBackground}"
+                CornerRadius=" 15 15 0 0">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="110"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="brDragble"
+                        Grid.Column="0"
+                        Cursor="ScrollAll"
+                        >
+                </Border>
+                <StackPanel VerticalAlignment="Top" Grid.Column="1" Orientation="Horizontal"
+                            Margin="0 5 0 0">
+                    <Button x:Name="MinimizedBtn" Click="MinimizedBtn_Click" Style="{DynamicResource MinimizedButton}"/>
+                    <Button x:Name="MaxsimizedBtn" Click="MaxsimizedBtn_Click" Style="{DynamicResource MaximazedButton}"/>
+                    <Button x:Name="CloseBtn" Click="CloseBtn_Click" Style="{DynamicResource CloseButton}"/>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1"
+                CornerRadius="0 0 15 15"
+                Background="{DynamicResource PrimaryBackground}"
+                >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="300"/>
+                    <ColumnDefinition Width = "*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" 
+                    Background="{DynamicResource SecondaryBackground}"
+                    CornerRadius="0 50 0 15">
+                    <StackPanel Margin="0 20 0 0">
+
+                        <RadioButton x:Name="rbHome" 
+                                 Style="{DynamicResource MenuButton}"
+                                 Content="Home" 
+                                 Click="rbHome_Click"
+                                 IsChecked="True"
+                                 Tag="{DynamicResource home}"/>
+
+                        <RadioButton x:Name="rbWords" 
+                                 Style="{DynamicResource MenuButton}"
+                                 Content="Words" 
+                                  Click="rbWords_Click"
+                                 Tag="{DynamicResource words}"/>
+
+                        <RadioButton x:Name="rbTest" 
+                                 Style="{DynamicResource MenuButton}"
+                                 Content="Test" 
+                                 Click="rbTest_Click"
+                                 Tag="{DynamicResource test}"/>
+
+                        <RadioButton x:Name="rbtranslate" 
+                                 Style="{DynamicResource MenuButton}"
+                                 Content="Translate" 
+                                 Click="rbtranslate_Click"
+                                 Tag="{DynamicResource translate}"/>
+                        
+                        <RadioButton x:Name="rbAbout" 
+                                 Style="{DynamicResource MenuButton}"
+                                 Content="About" 
+                                 Click="rbAbout_Click"
+                                 Tag="{DynamicResource about}"/>
+
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="1"
+                    Background="{DynamicResource PrimaryBackground}"
+                    CornerRadius="0 0 15 0">
+                    <Frame x:Name="PageNavigator"
+                           Margin="40 5 40 40"
+                           NavigationUIVisibility="Hidden"/>
+                </Border>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="WordGenius.Desktop.Components.Words.WordControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WordGenius.Desktop.Components.Words"
+             mc:Ignorable="d" 
+             Height="150" 
+             Margin="10"
+             Width="260">
+    <Grid>
+        <Border Background="{DynamicResource PrimaryBackground}"
+                CornerRadius="15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="playSoundBtn"
+                            Grid.Column="0"
+                            Click="playSoundBtn_Click"
+                            Style="{DynamicResource playSoundButton}">
+                    </Button>
+                    <TextBlock x:Name="wordLb"
+                           Grid.Column="1"
+                           Text="hello-salom"
+                           Margin="10 0 10 0"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource PrimaryTextColor}"
+                           FontSize="18"
+                           FontFamily="Segoi UI"
+                           TextWrapping="Wrap"
+                           FontWeight="SemiBold">
+                    </TextBlock>
+                </Grid>
+                <Border Grid.Row="1">
+                    <TextBlock x:Name="descriptionTb"
+                               Margin="10"
+                               FontSize="18"
+                               FontFamily="Segoi UI"
+                               Text="Deskription uchun joy"
+                               TextWrapping="Wrap">
+                        
+                    </TextBlock>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="WordGenius.Desktop.Components.Test.QuestionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WordGenius.Desktop.Components.Test"
+             mc:Ignorable="d" 
+             Height="600" Width="750">
+    <Grid>
+        <Border Background="{DynamicResource PrimaryBackground}"
+                CornerRadius="15">
+            <StackPanel>
+                <Grid Margin="0 20 0 20"
+                  HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="playSoundBtn"
+                            Grid.Column="0"
+                            Style="{DynamicResource playSoundButton}">
+                    </Button>
+                    <TextBlock x:Name="wordLb"
+                           Grid.Column="1"
+                           Text="hello-salom"
+                           Margin="10 0 10 0"
+                           VerticalAlignment="Center"
+                           Foreground="{DynamicResource PrimaryTextColor}"
+                           FontSize="18"
+                           FontFamily="Segoi UI"
+                           TextWrapping="Wrap"
+                           FontWeight="SemiBold">
+                    </TextBlock>
+                </Grid>
+                <Button Style="{DynamicResource CreateButton}"
+                        Height="50"
+                        Margin="50 20 50 20">
+                    
+                </Button>
+                <Button Style="{DynamicResource CreateButton}"
+                        Height="50"
+                        Margin="50 20 50 20">
+
+                </Button>
+                <Button Style="{DynamicResource CreateButton}"
+                        Height="50"
+                        Margin="50 20 50 20">
+
+                </Button>
+                <Button Style="{DynamicResource CreateButton}"
+                        Height="50"
+                        Margin="50 20 50 20">
+
+                </Button>
+            </StackPanel>
+          
+        </Border>
+    </Grid>
+</UserControl>
