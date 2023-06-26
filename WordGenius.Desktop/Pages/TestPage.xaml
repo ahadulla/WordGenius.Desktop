@@ -128,10 +128,10 @@
                         <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"
                             Margin="0 20 0 10">
-                            <RadioButton Content="Today"
+                            <RadioButton x:Name="rbToday" Content="Today"
                                  Style="{DynamicResource TestRb}">
                             </RadioButton>
-                            <RadioButton Content="All day"
+                            <RadioButton x:Name="rbAllday" Content="All day"
                                  IsChecked="True"
                                  Style="{DynamicResource TestRb}">
                             </RadioButton>

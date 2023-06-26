@@ -135,11 +135,17 @@ namespace WordGenius.Desktop.Pages
             StecGenerate.Visibility = Visibility.Collapsed;
             if(rbsound.IsChecked == true || rbEngUz.IsChecked == true)
             {
-                tests = CreateTest(int.Parse(numberTb.Text),1);
+                if(rbAllday.IsChecked == true)
+                {
+                    tests = CreateTest(int.Parse(numberTb.Text),1);
+                }
             }
             else
             {
-                tests = CreateTest(int.Parse(numberTb.Text), 0);
+                if(rbToday.IsChecked == true)
+                {
+                    tests = CreateTest(int.Parse(numberTb.Text), 0);
+                }
             }
         }
 
