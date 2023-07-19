@@ -89,8 +89,8 @@
                                      FontFamily="Segoi UI"
                                      Foreground="{DynamicResource PrimaryTextColor}"
                                      BorderThickness="0"
-                                     Background="Transparent"
-                                     >
+                                     Background="Transparent" 
+                                     TextChanged="fromText_TextChanged">
                             </TextBox>
                             
                             <Button x:Name="startTranslateButton"

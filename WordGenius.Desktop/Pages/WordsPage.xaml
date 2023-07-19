@@ -12,8 +12,10 @@
         <DropShadowEffect Color="#858181" BlurRadius="20"/>
     </Page.Effect>
 
+
     <Grid Background="Transparent">
-        <Border
+        <Border x:Name="MainBorder"
+            Visibility="Visible"
             CornerRadius="20"
             Background="{DynamicResource SecondaryBackground}">
             <Grid>
@@ -45,6 +47,8 @@
                                  Margin="5 0 5 0"
                                  FontFamily="Segoi UI"
                                  BorderThickness="0"
+                                 TextChanged="TextBox_TextChanged"
+                                 PreviewKeyDown="TextBox_PreviewKeyDown"
                                  Foreground="{DynamicResource PrimaryTextColor}"
                                  Background="{DynamicResource PrimaryBackground}"/>
                         </Grid>
@@ -54,11 +58,49 @@
                         Style="{DynamicResource CreateButton}"
                         Content="Create"/>
                 </StackPanel>
-                <ScrollViewer Margin="5 5 0 5"
+                <ScrollViewer Margin="5 5 1 13"
                           Grid.Row="1">
                     <WrapPanel x:Name="wrpWords" >
 
                     </WrapPanel>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        <Border x:Name="SecondaryBorder"
+                Visibility="Collapsed"
+                CornerRadius="20"
+                Background="{DynamicResource SecondaryBackground}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0">
+                        <Button x:Name="btnBackSentence"
+                        Click="btnBackSentence_Click"
+                        Style="{DynamicResource BackButton}"
+                        Background="Transparent"
+                        Content="Back"/>
+                    </Border>
+                    <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <Button x:Name="btnCreateSentence"
+                        Click="btnCreateSentence_Click"
+                        Style="{DynamicResource CreateButton}"
+                        Content="Create"/>
+                    </StackPanel>
+                </Grid>
+                <ScrollViewer Grid.Row="1"
+                              Margin="5 5 1 13" >
+                    <StackPanel x:Name="stackSentences" >
+
+                    </StackPanel>
                 </ScrollViewer>
             </Grid>
         </Border>

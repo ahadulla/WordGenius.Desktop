@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WordGenius.Desktop.Components.Test;
+using WordGenius.Desktop.Entities.Test;
 
 namespace WordGenius.Desktop.Pages;
 
@@ -25,10 +27,28 @@ public partial class ResultPage : Page
         InitializeComponent();
     }
 
-    public void SetData(string correct, string incorrect)
+    public void SetData(string correct, string incorrect, List<Test> tests, List<Test> Cortests)
     {
         Yashilchiroq.Text = correct;
         Qizilchiroq.Text = incorrect;
+
+        foreach (Test test in Cortests)
+        {
+            string text = test.word.Text + " - " + test.word.Translate;
+            IncorrectControl incorrectControl = new IncorrectControl();
+            incorrectControl.border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#03774C"));
+            incorrectControl.SetData(text);
+            wrpTests.Children.Add(incorrectControl);
+        }
+
+        foreach (Test test in tests)
+        {
+            string text = test.word.Text + " - " + test.word.Translate;
+            IncorrectControl incorrectControl = new IncorrectControl();
+            incorrectControl.SetData(text);
+            wrpTests.Children.Add(incorrectControl);
+        }
     }
+
 }
 

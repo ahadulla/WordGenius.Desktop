@@ -1,12 +1,12 @@
-﻿<Window x:Class="WordGenius.Desktop.Windows.Words.WordCreate"
+﻿<Window x:Class="WordGenius.Desktop.Windows.Words.CreateSentence"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WordGenius.Desktop.Windows.Words"
         mc:Ignorable="d"
-        Title="WordCreate"
-        Height="600" 
+        Title="CreateSentence" 
+        Height="350" 
         Width="500"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
@@ -14,6 +14,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         ResizeMode="NoResize">
+    
     <Window.Resources>
         <Style x:Key="Label" TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
@@ -26,6 +27,8 @@
             <Setter Property="Foreground" Value="{DynamicResource PrimaryTextColor}"/>
             <Setter Property="FontFamily" Value="Segoi UI"/>
             <Setter Property="FontSize" Value="18"/>
+            <Setter Property="TextWrapping"  Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
@@ -45,10 +48,11 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="75"/>
                 </Grid.ColumnDefinitions>
+                
                 <Border x:Name="brDragble"
-                        Grid.Column="0"
-                        >
+                        Grid.Column="0" >
                 </Border >
+                
                 <StackPanel VerticalAlignment="Top" Grid.Column="1" Orientation="Horizontal"
                             Margin="0 5 0 0">
                     <Button x:Name="InformationBtn" Click="InformationBtn_Click" Style="{DynamicResource InformationButton}"/>
@@ -64,52 +68,21 @@
                 Grid.Row="1">
             <StackPanel>
                 <Label
-                    Content="Uzbek"
+                    Content="Sentence"
                     Style="{DynamicResource Label}">
                 </Label>
+  
                 <Border CornerRadius="5"
                         Background="{DynamicResource PrimaryBorderColor}"
-                        Margin="10 5 10 10">
-                    <TextBox x:Name="uzbekWordTb"
-                             Style="{DynamicResource Textbox}"
-                             Height="25"
-                             MaxLength="50"
-                             Margin="5">
-                    </TextBox>
-                </Border>
-                <Label
-                    Margin="10 25 10 15"
-                    Content="English"
-                    Style="{DynamicResource Label}">
-                </Label>
-                <Border CornerRadius="5"
-                        Background="{DynamicResource PrimaryBorderColor}"
-                        Margin="10 5 10 10">
-                    <TextBox x:Name="englishWordTb"
-                             Style="{DynamicResource Textbox}"
-                             Height="25"
-                             MaxLength="50"
-                             Margin="5">
-                    </TextBox>
-                </Border>
-                <Label
-                    Margin="10 25 10 15"
-                    Content="Description"
-                    Style="{DynamicResource Label}">
-                </Label>
-                <Border CornerRadius="5"
-                        Background="{DynamicResource PrimaryBorderColor}"
-                        Margin="10 5 10 10">
-                    <TextBox x:Name="descriptionTb"
+                        Margin="10 15 10 10">
+                    <TextBox x:Name="sentenceTb"
                              Style="{DynamicResource Textbox}"
                              Height="150"
-                             TextWrapping="Wrap"
-                             AcceptsReturn="True"
                              Margin="5">
                     </TextBox>
                 </Border>
                 <Button x:Name="SaveBtn"
-                        Margin="10"
+                        Margin="10 15"
                         Style="{DynamicResource CreateButton}"
                         Content="Save"
                         Click="SaveBtn_Click"

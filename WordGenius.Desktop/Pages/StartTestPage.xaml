@@ -27,6 +27,7 @@
                                    Text="1/30"
                                    Margin="5"
                                    FontSize="30"
+                                   Foreground="{DynamicResource PrimaryTextColor}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
 
@@ -36,6 +37,7 @@
                                    Text="fgfghfffgdgh"
                                    Margin="5"
                                    FontSize="30"
+                                   Foreground="{DynamicResource PrimaryTextColor}"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center">
                         </TextBlock>
@@ -56,24 +58,28 @@
                             Height="60"
                             Width="355"
                             Click="A_Click"
+                            Background="{DynamicResource PrimaryBackground}"
                             Style="{DynamicResource AnswearButton}">
                         </Button>
                         <Button x:Name="B"
                             Height="60"
                             Width="355"
                             Click="B_Click"
+                            Background="{DynamicResource PrimaryBackground}"
                             Style="{DynamicResource AnswearButton}">
                         </Button>
                         <Button x:Name="C"
                             Height="60"
                             Width="355"
                             Click="C_Click"
+                            Background="{DynamicResource PrimaryBackground}"
                             Style="{DynamicResource AnswearButton}">
                         </Button>
                         <Button x:Name="D"
                             Height="60"
                             Width="355"
                             Click="D_Click"
+                            Background="{DynamicResource PrimaryBackground}"
                             Style="{DynamicResource AnswearButton}">
                         </Button>
                 </WrapPanel>

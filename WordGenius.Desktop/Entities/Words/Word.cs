@@ -17,4 +17,7 @@ public sealed class Word : Auditable
 
     public bool Is_Remember { get; set; } = false;
 
+
+    public int Correct_count { get; set; }
+
 }

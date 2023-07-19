@@ -12,11 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WordGenius.Desktop.Components.Sentences;
 using WordGenius.Desktop.Components.Words;
+using WordGenius.Desktop.Entities.Words;
+using WordGenius.Desktop.Interfaces.Sentences;
 using WordGenius.Desktop.Interfaces.Words;
 using WordGenius.Desktop.Repository.Words;
 using WordGenius.Desktop.Utils;
 using WordGenius.Desktop.Windows.Words;
+using WordGenius.Repositories.Sentences;
 
 namespace WordGenius.Desktop.Pages
 {
@@ -27,10 +31,15 @@ namespace WordGenius.Desktop.Pages
     {
         private readonly WordRepository _wordRepository;
 
+        private readonly SentenceRepository _sentenceRepository;
+
+        public Word myWord { get; set; }
+
         public WordsPage()
         {
             InitializeComponent();
             this._wordRepository = new WordRepository();
+            this._sentenceRepository = new SentenceRepository();
         }
 
         private async void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -52,15 +61,85 @@ namespace WordGenius.Desktop.Pages
 
             foreach (var word in words)
             {
-                WordControl courseViewUserControl = new WordControl();
-                courseViewUserControl.SetData(word);
-                wrpWords.Children.Add(courseViewUserControl);
+                WordControl wordControl = new WordControl();
+                wordControl.SetData(word);
+                wordControl.Refresh = RefreshAsync;
+                wordControl.AlterBorder = AlterBorder;
+                wrpWords.Children.Add(wordControl);
             }
         }
+
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await RefreshAsync();
+        }
+
+
+        private async void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string search = tbSearch.Text;
+
+                wrpWords.Children.Clear();
+                var words = await _wordRepository.SearchAsync(search);
+
+                foreach (var word in words)
+                {
+                    WordControl wordControl = new WordControl();
+                    wordControl.SetData(word);
+
+                    wrpWords.Children.Add(wordControl);
+                }
+            }
+        }
+
+        private async void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                await RefreshAsync();
+            }
+        }
+
+        private async void btnBackSentence_Click(object sender, RoutedEventArgs e)
+        {
+            SecondaryBorder.Visibility = Visibility.Collapsed;
+            MainBorder.Visibility = Visibility.Visible;
+            await RefreshAsync();
+        }
+
+        private async void btnCreateSentence_Click(object sender, RoutedEventArgs e)
+        {
+            CreateSentence createSentence = new CreateSentence();
+            createSentence.word_id = myWord.Id;
+            createSentence.ShowDialog();
+            await RefreshSentenceAsync();
+        }
+
+        public async void AlterBorder(Word word)
+        {
+            myWord = word;
+            MainBorder.Visibility = Visibility.Collapsed;
+            SecondaryBorder.Visibility = Visibility.Visible;
+            await RefreshSentenceAsync();
+
+        }
+
+        private async Task RefreshSentenceAsync()
+        {
+            stackSentences.Children.Clear();
+            var sentences = await _sentenceRepository.GetAllWordsSentenceAsync(myWord.Id);
+            foreach (var sentence in sentences)
+            {
+                SentencesControl sentencesControl = new SentencesControl();
+                sentencesControl.SetData(sentence);
+                sentencesControl.wordId = myWord.Id;
+                sentencesControl.Refresh = RefreshSentenceAsync;
+                stackSentences.Children.Add(sentencesControl);
+            }
         }
     }
 }

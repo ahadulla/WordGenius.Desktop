@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WordGenius.Desktop.Pages"
       mc:Ignorable="d" 
-      Height="450" Width="800"
+      d:DesignHeight="450" d:DesignWidth="800"
       Title="ResultPage">
 
     <Grid Background="Transparent">
@@ -13,53 +13,78 @@
             CornerRadius="20"
             Background="Transparent">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0"
-                     x:Name="YashilBorder" 
-                            Margin="20 100 20 20"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="{DynamicResource SecondaryBackground}"
+                            Margin="30"
+                            CornerRadius="20"
+                            Grid.Column="0">
+                        <StackPanel x:Name="YashilBorder" 
+                            Margin="12"
+                            Grid.Column="0"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <Label        
+                            <Label        
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              Content="Correct"
                              Foreground="Green"
-                             FontSize="50">
-                        
-                    </Label>
-                        <TextBlock x:Name="Yashilchiroq"
+                             FontSize="24">
+
+                            </Label>
+                            <TextBlock x:Name="Yashilchiroq"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Text="456"
                                    Foreground="Green"
-                                   FontSize="100">
-                        </TextBlock>
-                    
-                </StackPanel>
-                <StackPanel Grid.Column="1"
-                     x:Name="QizilBorder" 
-                            Margin="20 100 20 20"
+                                   FontSize="80">
+                            </TextBlock>
+
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{DynamicResource SecondaryBackground}"
+                            Margin="30"
+                            CornerRadius="20"
+                            Grid.Column="1">
+
+                        <StackPanel x:Name="QizilBorder" 
+                            Margin="12"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                    <Label        
+                        <Label        
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center"
                              Content="Incorrect"
                              Foreground="Red"
-                             FontSize="50">
+                             FontSize="24">
 
-                    </Label>
-                    <TextBlock x:Name="Qizilchiroq"
+                        </Label>
+                        <TextBlock x:Name="Qizilchiroq"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    Text="456"
                                    Foreground="Red"
-                                   FontSize="100">
+                                   FontSize="80">
                         </TextBlock>
-                </StackPanel>
+                    </StackPanel>
+                    </Border>
+                </Grid>
+                <Border BorderThickness="2"
+                        Grid.Row="1">
+                <ScrollViewer Margin="5 5 0 5"
+                              VerticalScrollBarVisibility="Hidden">
+                    <WrapPanel x:Name="wrpTests" >
+
+                    </WrapPanel>
+                </ScrollViewer>
+                </Border>
             </Grid>
        </Border>
     </Grid>

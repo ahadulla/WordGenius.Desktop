@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="WordGenius.Desktop.Components.Sentences.SentencesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WordGenius.Desktop.Components.Sentences"
+             mc:Ignorable="d" 
+             MouseRightButtonDown="UserControl_MouseRightButtonDown"
+             Margin="20 5 20 5"
+             Height="50"
+             d:DesignWidth="800">
+    <UserControl.Resources>
+        <ContextMenu x:Key="MyContextMenu"
+                     Height="79"
+                     Style="{DynamicResource ContextMenuStyle}" >
+            <MenuItem Header="Edit"
+                      Height="35"
+                      FontSize="18"
+                      Click="MenuItem_Edit_Click"
+                      Style="{DynamicResource MenuStyle}"
+                      FontFamily="Segoi UI">
+                <MenuItem.Icon>
+                    <Path Stretch="Fill"
+                          Fill="{DynamicResource PrimaryTextColor}" Data="{DynamicResource edit}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Delete"
+                      Height="35"
+                      FontSize="18"
+                      Click="MenuItem_Delete_Click"
+                      Style="{DynamicResource MenuStyle}"
+                      FontFamily="Segoi UI">
+                <MenuItem.Icon>
+                    <Path Stretch="Fill"
+                          Fill="{DynamicResource PrimaryTextColor}" Data="{DynamicResource delete}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <!-- Boshqa menyu elementlari -->
+        </ContextMenu>
+    </UserControl.Resources>
+    <Border Background="{DynamicResource PrimaryBorderColor}"
+                CornerRadius="15">
+            <TextBlock x:Name="TbSentence"
+                 FontSize="18"
+                 TextWrapping="Wrap"
+                 Margin="10 5 10 5"
+                 Foreground="{DynamicResource PrimaryTextColor}"
+                 FontFamily="Segoi UI">
+                
+            </TextBlock>
+        </Border>
+</UserControl>

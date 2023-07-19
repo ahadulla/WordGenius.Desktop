@@ -21,9 +21,11 @@ namespace WordGenius.Desktop.Pages
 
         public Action nextBtnTrue { get; set; }
 
-        public Action AlterPage { get; set; }
-
         public Action<int> setCorrect { get; set; }
+
+        public Action<Test> AddIncorrect { get; set; }
+
+        public Action<Test> AddCorrect { get; set; }
 
         public StartTestPage()
         {
@@ -42,7 +44,7 @@ namespace WordGenius.Desktop.Pages
             list.Add(test.errorAns2);
             list.Add(test.errorAns3);
             //List<string> list = new List<string>() {"a","b","c","d"};
-            list = Shuffle2(list);
+            list = Shuffle(list);
             A.Content = list[0].ToString();
             B.Content = list[1].ToString();
             C.Content = list[2].ToString();
@@ -61,7 +63,7 @@ namespace WordGenius.Desktop.Pages
             list.Add(test.errorAns2);
             list.Add(test.errorAns3);
 
-            list = Shuffle2(list);
+            list = Shuffle(list);
             A.Content = list[0].ToString();
             B.Content = list[1].ToString();
             C.Content = list[2].ToString();
@@ -81,7 +83,7 @@ namespace WordGenius.Desktop.Pages
             list.Add(test.errorAns2);
             list.Add(test.errorAns3);
 
-            list = Shuffle2(list);
+            list = Shuffle(list);
             A.Content = list[0].ToString();
             B.Content = list[1].ToString();
             C.Content = list[2].ToString();
@@ -91,15 +93,8 @@ namespace WordGenius.Desktop.Pages
 
         }
 
+
         public List<string> Shuffle(List<string> list)
-        { 
-            var random = new Random();
-            list = list.OrderBy(x => random.Next()).ToList();
-
-            return list;
-        }
-
-        public List<string> Shuffle2(List<string> list)
         {
             Random rng = new Random();
             int n = list.Count;
@@ -142,18 +137,15 @@ namespace WordGenius.Desktop.Pages
             if (A.Content == myTest.word.Text || A.Content == myTest.word.Translate)
             {
                 setCorrect(1);
+                AddCorrect(myTest);
                 A.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#03774C"));
             }
             else
             {
                 setCorrect(0);
                 checkker();
+                AddIncorrect(myTest);
                 A.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C14843"));
-            }
-
-            if (myTest.count == myTest.maxcount)
-            {
-                AlterPage();
             }
         }
 
@@ -169,19 +161,17 @@ namespace WordGenius.Desktop.Pages
             if (B.Content == myTest.word.Text || B.Content == myTest.word.Translate)
             {
                 setCorrect(1);
+                AddCorrect(myTest);
                 B.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#03774C"));
             }
             else
             {
                 setCorrect(0);
                 checkker();
+                AddIncorrect(myTest);
                 B.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C14843"));
             }
 
-            if (myTest.count == myTest.maxcount)
-            {
-                AlterPage();
-            }
         }
 
         private void C_Click(object sender, RoutedEventArgs e)
@@ -196,19 +186,17 @@ namespace WordGenius.Desktop.Pages
             if (C.Content == myTest.word.Text || C.Content == myTest.word.Translate)
             {
                 setCorrect(1);
+                AddCorrect(myTest);
                 C.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#03774C"));
             }
             else
             {
                 setCorrect(0);
                 checkker();
+                AddIncorrect(myTest);
                 C.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C14843"));
             }
 
-            if (myTest.count == myTest.maxcount)
-            {
-                AlterPage();
-            }
         }
 
         private void D_Click(object sender, RoutedEventArgs e)
@@ -223,6 +211,7 @@ namespace WordGenius.Desktop.Pages
             if (D.Content == myTest.word.Text || D.Content == myTest.word.Translate)
             {
                 setCorrect(1);
+                AddCorrect(myTest);
                 D.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#03774C"));
                 
             }
@@ -230,14 +219,11 @@ namespace WordGenius.Desktop.Pages
             {
                 setCorrect(0);
                 checkker();
+                AddIncorrect(myTest);
                 D.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C14843"));
                 
             }
 
-            if (myTest.count == myTest.maxcount)
-            {
-                AlterPage();
-            }
         }
 
 

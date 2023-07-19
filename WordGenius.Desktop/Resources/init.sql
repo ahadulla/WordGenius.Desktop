@@ -8,6 +8,7 @@ create table words
 	discription text not null,
 	sound bytea[],
 	is_remember bool,
+	correct_count int,
 	created_at timestamp not null,
 	update_at timestamp not null
 );

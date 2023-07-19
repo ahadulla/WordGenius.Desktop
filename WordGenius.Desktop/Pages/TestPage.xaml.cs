@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using WordGenius.Desktop.Components.Test;
+using WordGenius.Desktop.Entities.Results;
 using WordGenius.Desktop.Entities.Test;
 using WordGenius.Desktop.Entities.Words;
 using WordGenius.Desktop.Helpers;
+using WordGenius.Desktop.Interfaces.Results;
+using WordGenius.Desktop.Repositories.Results;
 using WordGenius.Desktop.Repository.Words;
-using WordGenius.Desktop.Utils;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using WordGenius.Helpers;
 
 namespace WordGenius.Desktop.Pages
 {
@@ -23,7 +22,13 @@ namespace WordGenius.Desktop.Pages
     {
         private readonly WordRepository _wordRepository;
 
-        public Task<List<Test>> tests ;
+        private readonly IResultRepository _resultRepository;
+
+        public Task<List<Test>> tests;
+
+        List<Test> incorrectTest = new List<Test>();
+
+        List<Test> correctTest = new List<Test>();
 
         public int i { get; set; }
 
@@ -31,10 +36,13 @@ namespace WordGenius.Desktop.Pages
 
         public int incorrect { get; set; } = 0;
 
+        public bool numberIs { get; set; } = true;
+
         public TestPage()
         {
             InitializeComponent();
             this._wordRepository = new WordRepository();
+            this._resultRepository = new ResultRepository();
         }
 
         private void plusBtn_Click(object sender, RoutedEventArgs e)
@@ -60,30 +68,11 @@ namespace WordGenius.Desktop.Pages
             if (i < int.Parse(numberTb.Text))
             {
                 Button n = (Button)sender;
+                StartTestPage testPage = new StartTestPage();
+
                 if (n.Content == "START")
                 {
                     Starttt(int.Parse(secund.Text));
-                    StartTestPage testPage = new StartTestPage();
-                    if((rbsound.IsChecked == true))
-                    {
-                        testPage.SetDataSount((await tests)[i++]);
-                    }
-                    else if(rbEngUz.IsChecked == true)
-                    {
-                        testPage.SetDataeng((await tests)[i++]);
-                    }
-                    else
-                    {
-                        testPage.SetDatauzb((await tests)[i++]);
-                    }
-                    testPage.nextBtnTrue = nextBtnTrue;
-                    testPage.setCorrect = setCorrect;
-                    testPage.AlterPage = AlterPage;
-                    PageNavigator.Content = testPage;
-                }
-                else
-                {
-                    StartTestPage testPage = new StartTestPage();
                     if ((rbsound.IsChecked == true))
                     {
                         testPage.SetDataSount((await tests)[i++]);
@@ -96,15 +85,61 @@ namespace WordGenius.Desktop.Pages
                     {
                         testPage.SetDatauzb((await tests)[i++]);
                     }
-                    testPage.nextBtnTrue = nextBtnTrue;
-                    testPage.setCorrect = setCorrect;
-                    testPage.AlterPage = AlterPage;
-                    PageNavigator.Content = testPage;
                 }
+                else
+                {
+                    if ((rbsound.IsChecked == true))
+                    {
+                        testPage.SetDataSount((await tests)[i++]);
+                    }
+                    else if (rbEngUz.IsChecked == true)
+                    {
+                        testPage.SetDataeng((await tests)[i++]);
+                    }
+                    else
+                    {
+                        testPage.SetDatauzb((await tests)[i++]);
+                    }
+
+                }
+                testPage.AddCorrect = AddCorrectTest;
+                testPage.AddIncorrect = AddIncorrectTest;
+                testPage.nextBtnTrue = nextBtnTrue;
+                testPage.setCorrect = setCorrect;
+                PageNavigator.Content = testPage;
                 nextBtn.Content = "NEXT QUESTION";
                 nextBtn.IsEnabled = false;
             }
-            
+
+        }
+
+        public void AddIncorrectTest(Test test)
+        {
+            incorrectTest.Add(test);
+        }
+
+        public async void AddCorrectTest(Test test)
+        {
+            correctTest.Add(test);
+            try
+            {
+                var Dbresult = await _wordRepository.UpdateCorrectCountAsync(test.word.Id);
+
+                var DbResult1 = await _wordRepository.UpdateIsRememberAsync(test.word.Id);
+
+                if (DbResult1 > 0)
+                {
+                    Result result = new Result();
+                    result.WordsId = test.word.Id;
+                    result.Step1 = TimeHelper.GetDateTime();
+
+                    var DbResult2 = await _resultRepository.CreateAsync(result);
+
+                }
+            }
+            catch
+            {
+            }
         }
 
         public void nextBtnTrue()
@@ -114,7 +149,7 @@ namespace WordGenius.Desktop.Pages
 
         public void setCorrect(int a)
         {
-            if(a==1)
+            if (a == 1)
             {
                 correct++;
             }
@@ -124,80 +159,134 @@ namespace WordGenius.Desktop.Pages
             }
         }
 
-        private void GenerateBtn_Click(object sender, RoutedEventArgs e)
+        private async void GenerateBtn_Click(object sender, RoutedEventArgs e)
         {
             i = correct = incorrect = 0;
 
             secund.Text = (int.Parse(numberTb.Text) * 6).ToString();
-            nextBtn.Content = "START";
-            nextBtn.Visibility = Visibility.Visible;
-            Secundomer.Visibility = Visibility.Visible;
-            StecGenerate.Visibility = Visibility.Collapsed;
-            if(rbsound.IsChecked == true || rbEngUz.IsChecked == true)
+
+            if (rbsound.IsChecked == true || rbEngUz.IsChecked == true)
             {
-                if(rbAllday.IsChecked == true)
+                if (rbAllday.IsChecked == true)
                 {
-                    tests = CreateTest(int.Parse(numberTb.Text),1);
+                    tests = CreateTest(int.Parse(numberTb.Text), 1, 1);
+                }
+                else if (rbToday.IsChecked == true)
+                {
+                    tests = CreateTest(int.Parse(numberTb.Text), 1, 0);
                 }
             }
             else
             {
-                if(rbToday.IsChecked == true)
+                if (rbAllday.IsChecked == true)
                 {
-                    tests = CreateTest(int.Parse(numberTb.Text), 0);
+                    tests = CreateTest(int.Parse(numberTb.Text), 0, 1);
+                }
+                else if (rbToday.IsChecked == true)
+                {
+                    tests = CreateTest(int.Parse(numberTb.Text), 0, 0);
                 }
             }
+            if ((await tests).Count > 0)
+            {
+                nextBtn.Content = "START";
+                nextBtn.Visibility = Visibility.Visible;
+                Secundomer.Visibility = Visibility.Visible;
+                StecGenerate.Visibility = Visibility.Collapsed;
+            }
         }
+
+        //public async Task Metod1(int n)
+        //{
+        //    for (int i = n - 1; i >= 0; i--)
+        //    {
+        //        await Task.Delay(1000);
+        //        secund.Text = i.ToString();
+        //        if (i == 0 || incorrect + correct == int.Parse(numberTb.Text))
+        //        {
+        //            await Task.Delay(500);
+        //            AlterPage();
+
+        //        }
+        //    }
+        //}
+
+        CancellationTokenSource cts;
 
         public async Task Metod1(int n)
         {
-            for (int i = n; i >=0; i--)
+            for (int i = n - 1; i >= 0; i--)
             {
-                await Task.Delay(1000);
-                secund.Text = i.ToString();
-                if (i == 0)
+                try
                 {
-                    nextBtn.Visibility = Visibility.Collapsed;
-                    ResultPage resultPage = new ResultPage();
-                    resultPage.SetData(correct.ToString(), incorrect.ToString());
-                    PageNavigator.Content = resultPage;
-                    Secundomer.Visibility = Visibility.Collapsed;
-                    StecGenerate.Visibility = Visibility.Visible;
+                    await Task.Delay(1000, cts.Token);
+                    secund.Text = i.ToString();
+                    if (i == 0 || incorrect + correct == int.Parse(numberTb.Text))
+                    {
+                        await Task.Delay(500);
+                        AlterPage();
+                        nextBtnTrue();
+                        cts.Cancel();
+                    }
                 }
-
+                catch (TaskCanceledException)
+                {
+                    break;
+                }
             }
         }
 
+
         public void AlterPage()
         {
-                nextBtn.Visibility = Visibility.Collapsed;
-                ResultPage resultPage = new ResultPage();
-                resultPage.SetData(correct.ToString(), incorrect.ToString());
-                PageNavigator.Content = resultPage;
-                Secundomer.Visibility = Visibility.Collapsed;
-                StecGenerate.Visibility = Visibility.Visible;
+            nextBtn.Visibility = Visibility.Collapsed;
+            ResultPage resultPage = new ResultPage();
+            resultPage.SetData(correct.ToString(), incorrect.ToString(), incorrectTest, correctTest);
+            PageNavigator.Content = resultPage;
+            Secundomer.Visibility = Visibility.Collapsed;
+            StecGenerate.Visibility = Visibility.Visible;
         }
 
         private async void Starttt(int n)
         {
+            cts = new CancellationTokenSource();
             Task task1 = Metod1(n);
             await task1;
         }
 
 
-        public async Task<List<Test>> CreateTest(int n, int a)
+        public async Task<List<Test>> CreateTest(int n, int a, int day)
         {
             Randomm rn = new Randomm();
 
             List<Test> tests = new List<Test>();
 
+            IList<Word> words;
 
             var count = await _wordRepository.CountAsync();
-            count = rn.Next(0, count-30);
+            count = rn.Next(0, count - 30);
 
-            var words = await _wordRepository.GetAllNMemoAsync(count);
+            if (day == 1)
+            {
+                words = await _wordRepository.GetAllNMemoAsync(count);
+            }
+            else
+            {
+                words = await _wordRepository.GetAllTodayAsync();
+            }
             int stop = words.Count;
-            
+            if (stop < 10)
+            {
+                MessageBox.Show("Not enough words entered");
+                return new List<Test>();
+            }
+
+            if (stop < n)
+            {
+                n = stop;
+            }
+
+            words = Shuffle(words);
 
             for (int i = 0; i < n; i++)
             {
@@ -205,7 +294,7 @@ namespace WordGenius.Desktop.Pages
 
                 Test test = new Test();
                 test.word = words[i];
-                if(a == 1)
+                if (a == 1)
                 {
                     test.errorAns1 = words[son[0]].Text;
                     test.errorAns2 = words[son[1]].Text;
@@ -227,15 +316,8 @@ namespace WordGenius.Desktop.Pages
             return tests;
         }
 
-        public List<Word> Shuffle(List<Word> list)
-        {
-            var random = new Random();
-            list = list.OrderBy(x => random.Next()).ToList();
 
-            return list;
-        }
-
-        public List<Word> Shuffle2(List<Word> list)
+        public IList<Word> Shuffle(IList<Word> list)
         {
             Random rng = new Random();
             int n = list.Count;
@@ -250,5 +332,10 @@ namespace WordGenius.Desktop.Pages
             return list;
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            DefoultTestPage defoultTestPage = new DefoultTestPage();
+            PageNavigator.Content = defoultTestPage;
+        }
     }
 }

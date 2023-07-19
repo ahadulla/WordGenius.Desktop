@@ -8,7 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
 
                 <!--begin::Themes-->
-                <ResourceDictionary Source="/Thems/LightTheme.xaml"/>
+                <ResourceDictionary x:Name="Theme"  Source="/Thems/DarkTheme.xaml"/>
                 <!--end::Themes-->
 
                 <!--begin::Icons-->
@@ -17,6 +17,8 @@
 
                 <!--begin::Styles-->
                 <ResourceDictionary Source="/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/TextBlokStyles.xaml"/>
+                <ResourceDictionary Source="/Styles/ContextMenuStyles.xaml"/>
                 <!--end::Styles-->
 
             </ResourceDictionary.MergedDictionaries>

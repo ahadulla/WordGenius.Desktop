@@ -8,6 +8,7 @@
         Title="MainWindow"
         Height="700" 
         Width="1150"
+        Loaded="Window_Loaded"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         WindowState="Normal"
@@ -58,7 +59,7 @@
 
                         <RadioButton x:Name="rbHome" 
                                  Style="{DynamicResource MenuButton}"
-                                 Content="Home" 
+                                 Content="Dashboard" 
                                  Click="rbHome_Click"
                                  IsChecked="True"
                                  Tag="{DynamicResource home}"/>

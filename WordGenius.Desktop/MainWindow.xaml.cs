@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WordGenius.Desktop.Pages;
+using WordGenius.Desktop.Repositories.Results;
+using WordGenius.Desktop.Repository.Words;
 
 namespace WordGenius.Desktop
 {
@@ -21,11 +23,17 @@ namespace WordGenius.Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ResultRepository _resultRepository;
+
+        private readonly WordRepository _wordRepository;
+
         public MainWindow()
         {
             InitializeComponent();
             HomePage homePage = new HomePage();
             PageNavigator.Content = homePage;
+            this._resultRepository = new ResultRepository();
+            this._wordRepository = new WordRepository();
         }
 
         private void brDragble_MouseDown(object sender, MouseButtonEventArgs e)
@@ -91,9 +99,38 @@ namespace WordGenius.Desktop
             PageNavigator.Content = testPage;
         }
 
-        private void SetWrap()
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var resultList = await _resultRepository.GetAllFinishedStep1Async();
+
+                if (resultList.Count > 0)
+                {
+                    var result = await _wordRepository.UpdateIsRememberAllAsync(resultList);
+                }
+
+
+                resultList = await _resultRepository.GetAllFinishedStep2Async();
+
+                if (resultList.Count > 0)
+                {
+                    var result = await _wordRepository.UpdateIsRememberAllAsync(resultList);
+                }
+
+                resultList = await _resultRepository.GetAllFinishedStep3Async();
+
+                if (resultList.Count > 0)
+                {
+                    var result = await _wordRepository.UpdateIsRememberAllAsync(resultList);
+                }
+
+            }
+            catch
+            {
+            }
             
+
         }
     }
 }

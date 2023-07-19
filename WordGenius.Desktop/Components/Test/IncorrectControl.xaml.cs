@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,18 +17,18 @@ using System.Windows.Shapes;
 namespace WordGenius.Desktop.Components.Test
 {
     /// <summary>
-    /// Interaction logic for QuestionControl.xaml
+    /// Interaction logic for IncorrectControl.xaml
     /// </summary>
-    public partial class QuestionControl : UserControl
+    public partial class IncorrectControl : UserControl
     {
-        public QuestionControl()
+        public IncorrectControl()
         {
             InitializeComponent();
         }
 
-        public void setdata(string text)
+        public void SetData(string text)
         {
-            wordLb.Text = text; 
+            TextLb.Content = text;
         }
     }
 }

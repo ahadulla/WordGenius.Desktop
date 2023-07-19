@@ -8,17 +8,28 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Images\" />
-    <Folder Include="Assets\Logos\" />
-    <Folder Include="Assets\Sounds\" />
-    <Folder Include="Enums\" />
-    <Folder Include="ViewModels\" />
+    <None Remove="Assets\Images\checklist.gif" />
+    <None Remove="Assets\Images\checklist.png" />
+    <None Remove="Assets\Images\sand-clock.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Assets\Logos\" />
+    <Folder Include="Assets\Sounds\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql" Version="7.0.4" />
     <PackageReference Include="System.Speech" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\checklist.gif" />
+    <Resource Include="Assets\Images\checklist.png" />
+    <Resource Include="Assets\Images\sand-clock.png" />
   </ItemGroup>
 
 </Project>

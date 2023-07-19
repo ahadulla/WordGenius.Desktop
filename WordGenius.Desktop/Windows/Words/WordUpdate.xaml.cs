@@ -12,41 +12,39 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WordGenius.Desktop.Entities.Words;
-using WordGenius.Desktop.Interfaces.Words;
 using WordGenius.Desktop.Repository.Words;
 using WordGenius.Helpers;
 
 namespace WordGenius.Desktop.Windows.Words
 {
     /// <summary>
-    /// Interaction logic for WordCreate.xaml
+    /// Interaction logic for WordUpdate.xaml
     /// </summary>
-    public partial class WordCreate : Window
-    {
-        private readonly IWordsRepository _wordsRepository;
+    /// 
 
-        public WordCreate()
+
+
+    public partial class WordUpdate : Window
+    {
+
+
+        private readonly WordRepository _wordRepository;
+
+        public long Id { get; set; }
+
+        public WordUpdate()
         {
             InitializeComponent();
-            this._wordsRepository = new WordRepository();
-        }
+            this._wordRepository = new WordRepository();
 
-        private void InformationBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("");
-        }
-
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
         private async void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             var word = GetDateUI();
-            if(word != null)
+            if (word != null)
             {
-                var result = await _wordsRepository.CreateAsync(word);
+                var result = await _wordRepository.UpdateAsync(Id,word);
                 if (result > 0)
                 {
                     this.Close();
@@ -62,13 +60,20 @@ namespace WordGenius.Desktop.Windows.Words
                 word.Text = uzbekWordTb.Text;
                 word.Translate = englishWordTb.Text;
                 word.Discription = descriptionTb.Text;
-                word.Is_Remember = false;
-                word.CreateAt = TimeHelper.GetDateTime();
                 word.UpdateAt = TimeHelper.GetDateTime();
-                word.Correct_count = 0;
                 return word;
             }
             return null;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void InformationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("");
         }
     }
 }

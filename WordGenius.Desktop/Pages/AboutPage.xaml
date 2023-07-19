@@ -16,22 +16,6 @@
                FontSize="22"
                FontFamily="Segoi UI"
                FontWeight="SemiBold"
-               Content="Uzbek" >
-            </Label>
-
-            <TextBlock Foreground="{DynamicResource PrimaryTextColor}"
-               FontSize="22"
-               TextWrapping="Wrap"
-               FontFamily="Segoi UI"
-               Text="Dasturning maqsadi ingliz tilini o'rganayotgan yoshlar uchun qulaylik yaratish. Yoshlar har kuni o'z bilimlarini sinash orqali o'rganganlarini mustahkamlab borishiga ko'maklashish.">
-            </TextBlock>
-            <Border Height="30">
-            </Border>
-
-            <Label Foreground="{DynamicResource PrimaryTextColor}"
-               FontSize="22"
-               FontFamily="Segoi UI"
-               FontWeight="SemiBold"
                Content="English">
             </Label>
 
@@ -42,6 +26,23 @@
                Text="The purpose of the program is to facilitate young people learning English. Helping young people consolidate what they have learned by testing their knowledge every day.">
             </TextBlock>
 
+            <Border Height="30">
+            </Border>
+            
+            <Label Foreground="{DynamicResource PrimaryTextColor}"
+               FontSize="22"
+               FontFamily="Segoi UI"
+               FontWeight="SemiBold"
+               Content="Uzbek" >
+            </Label>
+
+            <TextBlock Foreground="{DynamicResource PrimaryTextColor}"
+               FontSize="22"
+               TextWrapping="Wrap"
+               FontFamily="Segoi UI"
+               Text="Dasturning maqsadi ingliz tilini o'rganayotgan yoshlar uchun qulaylik yaratish. Yoshlar har kuni o'z bilimlarini sinash orqali o'rganganlarini mustahkamlab borishiga ko'maklashish.">
+            </TextBlock>
+            
         </StackPanel>
 
     </Grid>

@@ -2,7 +2,7 @@
 
 namespace WordGenius.Desktop.Entities.Results;
 
-internal class Results: BaseEntity
+public class Result: BaseEntity
 {
     public long WordsId { get; set; }
 

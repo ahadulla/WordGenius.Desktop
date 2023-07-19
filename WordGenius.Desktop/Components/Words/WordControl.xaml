@@ -5,11 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WordGenius.Desktop.Components.Words"
              mc:Ignorable="d" 
-             Height="150" 
              Margin="10"
-             Width="260">
+             MouseRightButtonDown="UserControl_MouseRightButtonDown"
+             Height="130" 
+             Width="350">
+    <UserControl.Resources>
+        <ContextMenu x:Key="MyContextMenu"
+                     Height="114"
+                     Style="{DynamicResource ContextMenuStyle}" >
+            <MenuItem Header="Add Sentence"
+                      Height="35"
+                      FontSize="18"
+                      Click="MenuItem_Add_Click"
+                      Style="{DynamicResource MenuStyle}"
+                      FontFamily="Segoi UI">
+                <MenuItem.Icon>
+                        <Path x:Name="icon" 
+                              Stretch="Fill"
+                              Fill="{DynamicResource PrimaryTextColor}" Data="{DynamicResource plus}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Edit"
+                      Height="35"
+                      FontSize="18"
+                      Click="MenuItem_Edit_Click"
+                      Style="{DynamicResource MenuStyle}"
+                      FontFamily="Segoi UI">
+                <MenuItem.Icon>
+                    <Path Stretch="Fill"
+                          Fill="{DynamicResource PrimaryTextColor}" Data="{DynamicResource edit}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Delete"
+                      Height="35"
+                      FontSize="18"
+                      Click="MenuItem_Delete_Click"
+                      Style="{DynamicResource MenuStyle}"
+                      FontFamily="Segoi UI">
+                <MenuItem.Icon>
+                    <Path Stretch="Fill"
+                          Fill="{DynamicResource PrimaryTextColor}" Data="{DynamicResource delete}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <!-- Boshqa menyu elementlari -->
+        </ContextMenu>
+    </UserControl.Resources>
     <Grid>
-        <Border Background="{DynamicResource PrimaryBackground}"
+        <Border Background="{DynamicResource PrimaryBorderColor}"
                 CornerRadius="15">
             <Grid>
                 <Grid.RowDefinitions>
@@ -29,13 +71,8 @@
                     <TextBlock x:Name="wordLb"
                            Grid.Column="1"
                            Text="hello-salom"
-                           Margin="10 0 10 0"
-                           VerticalAlignment="Center"
-                           Foreground="{DynamicResource PrimaryTextColor}"
-                           FontSize="18"
-                           FontFamily="Segoi UI"
-                           TextWrapping="Wrap"
-                           FontWeight="SemiBold">
+                           Style="{DynamicResource TextBlock}"
+                           MouseLeftButtonDown="Border_MouseDown">
                     </TextBlock>
                 </Grid>
                 <Border Grid.Row="1">
@@ -44,6 +81,7 @@
                                FontSize="18"
                                FontFamily="Segoi UI"
                                Text="Deskription uchun joy"
+                               Foreground="{DynamicResource PrimaryTextColor}"
                                TextWrapping="Wrap">
                         
                     </TextBlock>

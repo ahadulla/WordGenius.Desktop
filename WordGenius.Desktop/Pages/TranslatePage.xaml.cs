@@ -100,5 +100,10 @@ namespace WordGenius.Desktop.Pages
                
             }
         }
+
+        private void fromText_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            translateTextTb.Text = "";
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Windows.Themes;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,9 @@ namespace WordGenius.Desktop
     /// </summary>
     public partial class App : Application
     {
+        public void setTheme()
+        {
+        }
     }
+    
 }
